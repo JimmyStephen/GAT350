@@ -16,9 +16,7 @@ struct ColorBuffer
             memcpy(data, other.data, width * height * sizeof(color_t));
         }
     }
-
-    //IDK WHY THIS BREAKS
-//	~ColorBuffer() { delete[] data; }
+    inline void SetColor(int x, int y, const color_t& color);
 
 	uint8_t* data{ nullptr };
 
@@ -26,3 +24,10 @@ struct ColorBuffer
 	int height = 0;
 	int pitch = 0;
 };
+
+
+inline void ColorBuffer::SetColor(int x, int y, const color_t& color) {
+    if (x < 0 || x >= width || y < 0 || y >= height) return;
+
+    ((color_t*)(data))[x + y * width] = color;
+}

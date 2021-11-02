@@ -19,7 +19,7 @@ int main(int, char**)
 	//effect transparency, smaller number more transparent
 	image->Load("../resources/flower.bmp", 128);
 	image->Flip();
-	
+
 	bool quit = false;
 	SDL_Event event;
 	while (!quit)
@@ -75,7 +75,7 @@ int main(int, char**)
 		//		rand() % renderer->width, rand() % renderer->height,
 		//		30, { 0, 255, 255, 255 });
 		//}
-		
+
 
 		framebuffer->DrawImage(300, 50, image.get());
 
