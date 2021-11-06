@@ -1,9 +1,11 @@
 #include "Tracer.h"
 #include "Scene.h"
+#include <iostream>
 
 void Tracer::Trace(const ColorBuffer& colorBuffer, Scene* scene, Camera* camera)
 {
 	float aspectRatio = colorBuffer.width / (float)colorBuffer.height;
+	float invSamples = 1.0f / samples;
 
 	for (int y = 0; y < colorBuffer.height; y++) {
 		for (int x = 0; x < colorBuffer.width; x++) {
@@ -15,10 +17,17 @@ void Tracer::Trace(const ColorBuffer& colorBuffer, Scene* scene, Camera* camera)
 
 
 				raycastHit_t hit;
-				color += scene->Trace(ray, 0.00001f, FLT_MAX, hit);
+				color += scene->Trace(ray, 0.00001f, FLT_MAX, hit, depth);
 			}
-			color /= (float)samples;
+			color.r = sqrt(color.r * invSamples);
+			color.g = sqrt(color.g * invSamples);
+			color.b = sqrt(color.b * invSamples);
+
 			colorBuffer.SetColor(x, y, Vec3ToColor(color));
 		}
+		if(y < 10){ std::cout << y << "   out of " << colorBuffer.height << std::endl; }
+		else if(y < 100){ std::cout << y << "  out of " << colorBuffer.height << std::endl; }
+		else { std::cout << y << " out of " << colorBuffer.height << std::endl; }
 	}
+	std::cout << "Done" << std::endl;
 }

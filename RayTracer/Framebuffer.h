@@ -1,6 +1,6 @@
 #pragma once
 #include "Renderer.h"
-#include "Image.h"
+
 #include "Colorbuffer.h"
 #include <vector>
 class Framebuffer
@@ -11,7 +11,7 @@ public:
 
 	void Update();
 
-	void DrawImage(int x1, int y2, Image* image);
+	void DrawImage(int x1, int y2, class Image* image);
 
 	void Clear(const color_t& color);
 	void DrawPoint(int x, int y, const color_t& color);

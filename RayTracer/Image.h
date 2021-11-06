@@ -4,10 +4,16 @@
 class Image
 {
 public:
-	friend class Framebuffer;
+	Image() {}
+	Image(const std::string& filename, uint8_t alpha = 255)
+	{
+		Load(filename, alpha);
+	}
 
 	bool Load(const std::string& filename, uint8_t alpha = 255);
 	void Flip();
+
+	friend class Framebuffer;
 
 	ColorBuffer colorBuffer;
 private:
